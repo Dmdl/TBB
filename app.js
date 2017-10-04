@@ -2,8 +2,8 @@ var restify = require('restify');
 var builder = require('botbuilder');
 
 var connector = new builder.ChatConnector({
-    appId: '806a71d0-3144-42de-a5c7-d741a1402123',
-    appPassword: '4iwV6TfEC2JBYqTpAvQq9fE'
+    appId: process.env.MICROSOFT_APP_ID,
+    appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
 
 var bot = new builder.UniversalBot(connector, [
