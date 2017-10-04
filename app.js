@@ -84,7 +84,7 @@ function createThumbnailCard(session) {
 var order = 1234;
 function createReceiptCard(session) {
     return new builder.ReceiptCard(session)
-        .title('John Doe')
+        .title('Lakmal Dasanayake')
         .facts([
             builder.Fact.create(session, order++, 'Order Number'),
             builder.Fact.create(session, 'VISA 5555-****', 'Payment Method')
