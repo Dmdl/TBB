@@ -25,7 +25,33 @@ var connector = new builder.ChatConnector({
 // ]);
 
 var bot = new builder.UniversalBot(connector, function (session) {
-    session.send("Hi... We sell shirts. Say 'show shirts' to see our products.");
+    session.send("Hi... Welcome to the ABC Bank Bot.");
+    var msg = new builder.Message(session);
+    msg.attachmentLayout(builder.AttachmentLayout.carousel);
+    msg.attachments([
+        new builder.HeroCard(session)
+            .title("online bank")
+            .text("all online banking")
+            .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/whiteshirt.png')])
+            .buttons([
+                builder.CardAction.imBack(session, "online bank", "Proceed")
+            ]),
+        new builder.HeroCard(session)
+            .title("product info")
+            .text("product information")
+            .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/grayshirt.png')])
+            .buttons([
+                builder.CardAction.imBack(session, "product information", "Proceed")
+            ]),
+        new builder.HeroCard(session)
+            .title("promotions")
+            .text("product information")
+            .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/grayshirt.png')])
+            .buttons([
+                builder.CardAction.imBack(session, "promotions", "Proceed")
+            ])
+    ]);
+    session.send(msg).endDialog();
 });
 
 // Add dialog to return list of shirts available
