@@ -62,7 +62,7 @@ bot.dialog('showOptions', function (session) {
             .text("Price is $25 and carried in sizes (S, M, L, and XL)")
             .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/whiteshirt.png')])
             .buttons([
-                builder.CardAction.imBack(session, "online banking")
+                builder.CardAction.imBack(session, "online banking", "online banking")
             ]),
         new builder.HeroCard(session)
             .title("Classic Gray T-Shirt")
@@ -72,7 +72,7 @@ bot.dialog('showOptions', function (session) {
                 builder.CardAction.imBack(session, "buy classic gray t-shirt", "Buy")
             ])
     ]);
-    session.send(msg).endDialog();
+    session.send(msg);
 }).triggerAction({ matches: /^(show|list)/i });
 
 bot.dialog('onlineBanking', [
