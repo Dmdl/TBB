@@ -16,7 +16,7 @@ var bot = new builder.UniversalBot(connector, function (session) {
             .title("online bank")
             .text("all online banking")
             .buttons([
-                builder.CardAction.imBack(session, "onlineBank", "Proceed")
+                builder.CardAction.imBack(session, "onlineBank", "onlineBank")
             ]),
         new builder.HeroCard(session)
             .title("product info")
@@ -50,7 +50,7 @@ bot.dialog('onlineBank', [
     function (session) {
         session.send('online banking').endDialog();
     },
-]).triggerAction({ matches: /(online|bank)\s.*bank/i });
+]).triggerAction({ matches: /(onlineBank|bank)\s.*bank/i });
 
 var server = restify.createServer();
 server.post('/api/messages', connector.listen());
