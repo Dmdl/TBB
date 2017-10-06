@@ -16,13 +16,13 @@ var bot = new builder.UniversalBot(connector, function (session) {
             .title("online bank")
             .text("all online banking")
             .buttons([
-                builder.CardAction.imBack(session, "online bank", "Proceed")
+                builder.CardAction.imBack(session, "onlineBank", "Proceed")
             ]),
         new builder.HeroCard(session)
             .title("product info")
             .text("product information")
             .buttons([
-                builder.CardAction.imBack(session, "product information", "Proceed")
+                builder.CardAction.imBack(session, "productInformation", "Proceed")
             ]),
         new builder.HeroCard(session)
             .title("promotions")
@@ -43,8 +43,14 @@ var bot = new builder.UniversalBot(connector, function (session) {
                 builder.CardAction.imBack(session, "Rates and Tariffs", "Proceed")
             ])
     ]);
-    session.send(msg).endConversation();
+    session.send(msg);
 });
+
+bot.dialog('onlineBank', [
+    function (session) {
+        session.send('online banking').endDialog();
+    },
+]).triggerAction({ matches: /(online|bank)\s.*bank/i });
 
 var server = restify.createServer();
 server.post('/api/messages', connector.listen());
