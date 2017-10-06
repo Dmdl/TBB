@@ -47,7 +47,8 @@ var connector = new builder.ChatConnector({
 // });
 
 var bot = new builder.UniversalBot(connector, function (session) {
-    session.send("Hi... We sell shirts. Say 'show shirts' to see our products.");
+    session.send("Hi... We sell shirts.");
+    session.beginDialog('showShirts');
 });
 
 // Add dialog to return list of shirts available
