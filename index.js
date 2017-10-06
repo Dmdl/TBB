@@ -47,26 +47,25 @@ var connector = new builder.ChatConnector({
 // });
 
 var bot = new builder.UniversalBot(connector, function (session) {
-    session.send("Hi... We sell shirts.");
-    session.beginDialog('showShirts');
+    session.send("Hi... Welcome to the ABC Bank Bot.");
+    session.send("We will help you with banking needs. What would you like to do?");
+    session.beginDialog('showOptions');
 });
 
 // Add dialog to return list of shirts available
-bot.dialog('showShirts', function (session) {
+bot.dialog('showOptions', function (session) {
     var msg = new builder.Message(session);
     msg.attachmentLayout(builder.AttachmentLayout.carousel)
     msg.attachments([
         new builder.HeroCard(session)
-            .title("Classic White T-Shirt")
-            .subtitle("100% Soft and Luxurious Cotton")
+            .title("Online Banking")
             .text("Price is $25 and carried in sizes (S, M, L, and XL)")
             .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/whiteshirt.png')])
             .buttons([
-                builder.CardAction.imBack(session, "buy classic white t-shirt", "Buy")
+                builder.CardAction.imBack(session, "buy classic white t-shirt", "onlinebanking")
             ]),
         new builder.HeroCard(session)
             .title("Classic Gray T-Shirt")
-            .subtitle("100% Soft and Luxurious Cotton")
             .text("Price is $25 and carried in sizes (S, M, L, and XL)")
             .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/grayshirt.png')])
             .buttons([
@@ -119,7 +118,7 @@ bot.dialog('buyButtonClick', [
         // Send confirmation to users
         session.send("A '%(size)s %(product)s' has been added to your cart.", item).endDialog();
     }
-]).triggerAction({ matches: /(buy|add)\s.*shirt/i });
+]).triggerAction({ matches: /(onlinebanking|add)\s.*shirt/i });
 
 var server = restify.createServer();
 server.post('/api/messages', connector.listen());
