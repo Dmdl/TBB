@@ -6,81 +6,65 @@ var connector = new builder.ChatConnector({
     appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
 
-// var bot = new builder.UniversalBot(connector, function (session) {
-//     session.send("Hi... Welcome to the ABC Bank Bot.");
-//     session.send("We will help you with banking needs. What would you like to do?");
-//     var msg = new builder.Message(session);
-//     msg.attachmentLayout(builder.AttachmentLayout.carousel);
-//     msg.attachments([
-//         new builder.HeroCard(session)
-//             .title("online bank")
-//             .text("all online banking")
-//             .buttons([
-//                 builder.CardAction.imBack(session, "online Bank", "onlineBank")
-//             ]),
-//         new builder.HeroCard(session)
-//             .title("product info")
-//             .text("product information")
-//             .buttons([
-//                 builder.CardAction.imBack(session, "productInformation", "Proceed")
-//             ]),
-//         new builder.HeroCard(session)
-//             .title("promotions")
-//             .text("promotions")
-//             .buttons([
-//                 builder.CardAction.imBack(session, "promotions", "Proceed")
-//             ]),
-//         new builder.HeroCard(session)
-//             .title("Branches & ATM")
-//             .text("Branches & ATM")
-//             .buttons([
-//                 builder.CardAction.imBack(session, "Branches & ATM", "Proceed")
-//             ]),
-//         new builder.HeroCard(session)
-//             .title("Rates and Tariffs")
-//             .text("rates and tariffs")
-//             .buttons([
-//                 builder.CardAction.imBack(session, "Rates and Tariffs", "Proceed")
-//             ])
-//     ]);
-//     session.send(msg);
-// });
-
 var bot = new builder.UniversalBot(connector, function (session) {
     session.send("Hi... Welcome to the ABC Bank Bot.");
     session.send("We will help you with banking needs. What would you like to do?");
     session.beginDialog('showOptions');
 });
 
-// Add dialog to return list of shirts available
+// Add dialog to return list of options available
 bot.dialog('showOptions', function (session) {
     var msg = new builder.Message(session);
     msg.attachmentLayout(builder.AttachmentLayout.carousel)
     msg.attachments([
         new builder.HeroCard(session)
-            .title("Online Banking")
-            .text("Price is $25 and carried in sizes (S, M, L, and XL)")
-            .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/whiteshirt.png')])
+            .title("online bank")
+            .text("all online banking")
             .buttons([
-                builder.CardAction.imBack(session, "online banking", "online banking")
+                builder.CardAction.imBack(session, "online Bank", "online Bank")
             ]),
         new builder.HeroCard(session)
-            .title("Classic Gray T-Shirt")
-            .text("Price is $25 and carried in sizes (S, M, L, and XL)")
-            .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/grayshirt.png')])
+            .title("product info")
+            .text("product information")
             .buttons([
-                builder.CardAction.imBack(session, "buy classic gray t-shirt", "Buy")
+                builder.CardAction.imBack(session, "product Information", "product Information")
+            ]),
+        new builder.HeroCard(session)
+            .title("promotions")
+            .text("promotions")
+            .buttons([
+                builder.CardAction.imBack(session, "promotions", "Proceed")
+            ]),
+        new builder.HeroCard(session)
+            .title("Branches & ATM")
+            .text("Branches & ATM")
+            .buttons([
+                builder.CardAction.imBack(session, "Branches & ATM", "Proceed")
+            ]),
+        new builder.HeroCard(session)
+            .title("Rates and Tariffs")
+            .text("rates and tariffs")
+            .buttons([
+                builder.CardAction.imBack(session, "Rates and Tariffs", "Proceed")
             ])
     ]);
     session.send(msg);
 }).triggerAction({ matches: /^(show|list)/i });
 
-bot.dialog('onlineBanking', [
+bot.dialog('online Bank', [
     function (session) {
-        session.send('online banking').endDialog();
+        session.send('online banking...').endDialog();
     }
 ]).triggerAction({
-    matches: /^online banking$/i
+    matches: /^online Bank$/i
+});
+
+bot.dialog('product Information', [
+    function (session) {
+        session.send('product Information...').endDialog();
+    }
+]).triggerAction({
+    matches: /^product Information$/i
 });
 
 var server = restify.createServer();
