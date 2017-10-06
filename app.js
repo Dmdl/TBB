@@ -14,7 +14,6 @@ var bot = new builder.UniversalBot(connector, [
         });
     },
     function (session, results) {
-
         // create the card based on selection
         var selectedCardName = results.response.entity;
         var card = createCard(selectedCardName, session);
