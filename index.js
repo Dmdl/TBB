@@ -33,19 +33,19 @@ bot.dialog('showOptions', function (session) {
             .title("promotions")
             .text("promotions")
             .buttons([
-                builder.CardAction.imBack(session, "promotions", "Proceed")
+                builder.CardAction.imBack(session, "promotions", "promotions")
             ]),
         new builder.HeroCard(session)
             .title("Branches & ATM")
             .text("Branches & ATM")
             .buttons([
-                builder.CardAction.imBack(session, "Branches & ATM", "Proceed")
+                builder.CardAction.imBack(session, "Branches ATM", "Branches & ATM")
             ]),
         new builder.HeroCard(session)
             .title("Rates and Tariffs")
             .text("rates and tariffs")
             .buttons([
-                builder.CardAction.imBack(session, "Rates and Tariffs", "Proceed")
+                builder.CardAction.imBack(session, "Rates Tariffs", "Rates and Tariffs")
             ])
     ]);
     session.send(msg);
