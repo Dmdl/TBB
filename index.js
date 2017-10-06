@@ -49,7 +49,7 @@ bot.dialog('showOptions', function (session) {
             ])
     ]);
     session.send(msg);
-}).triggerAction({ matches: /^(show|list)/i });
+}).triggerAction({ matches: /^(option|list|options)/i });
 
 bot.dialog('online Bank', [
     function (session) {
