@@ -62,7 +62,7 @@ bot.dialog('showOptions', function (session) {
             .text("Price is $25 and carried in sizes (S, M, L, and XL)")
             .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/whiteshirt.png')])
             .buttons([
-                builder.CardAction.imBack(session, "buy classic white t-shirt", "onlinebanking")
+                builder.CardAction.imBack(session, "online banking", "online banking")
             ]),
         new builder.HeroCard(session)
             .title("Classic Gray T-Shirt")
@@ -118,7 +118,15 @@ bot.dialog('buyButtonClick', [
         // Send confirmation to users
         session.send("A '%(size)s %(product)s' has been added to your cart.", item).endDialog();
     }
-]).triggerAction({ matches: /(onlinebanking|add)\s.*shirt/i });
+]).triggerAction({ matches: /(buy|add)\s.*shirt/i });
+
+bot.dialog('onlineBanking', [
+    function (session) {
+        session.send('online banking').endDialog();
+    }
+]).triggerAction({
+    matches: /^online banking$/i
+});
 
 var server = restify.createServer();
 server.post('/api/messages', connector.listen());
