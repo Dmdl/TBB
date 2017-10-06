@@ -6,78 +6,45 @@ var connector = new builder.ChatConnector({
     appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
 
-// var bot = new builder.UniversalBot(connector, [
-//     function (session) {
-//         builder.Prompts.choice(session, 'What card would like to test?', CardNames, {
-//             maxRetries: 3,
-//             retryPrompt: 'Ooops, what you wrote is not a valid option, please try again'
-//         });
-//     },
-//     function (session, results) {
-//         // create the card based on selection
-//         var selectedCardName = results.response.entity;
-//         var card = createCard(selectedCardName, session);
-
-//         // attach the card to the reply message
-//         var msg = new builder.Message(session).addAttachment(card);
-//         session.send(msg);
-//     }
-// ]);
-
 var bot = new builder.UniversalBot(connector, function (session) {
     session.send("Hi... Welcome to the ABC Bank Bot.");
+    session.send("We will help you with banking needs. What would you like to do?");
     var msg = new builder.Message(session);
     msg.attachmentLayout(builder.AttachmentLayout.carousel);
     msg.attachments([
         new builder.HeroCard(session)
             .title("online bank")
             .text("all online banking")
-            .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/whiteshirt.png')])
             .buttons([
                 builder.CardAction.imBack(session, "online bank", "Proceed")
             ]),
         new builder.HeroCard(session)
             .title("product info")
             .text("product information")
-            .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/grayshirt.png')])
             .buttons([
                 builder.CardAction.imBack(session, "product information", "Proceed")
             ]),
         new builder.HeroCard(session)
             .title("promotions")
-            .text("product information")
-            .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/grayshirt.png')])
+            .text("promotions")
             .buttons([
                 builder.CardAction.imBack(session, "promotions", "Proceed")
-            ])
-    ]);
-    session.send(msg).endDialog();
-});
-
-// Add dialog to return list of shirts available
-bot.dialog('showShirts', function (session) {
-    var msg = new builder.Message(session);
-    msg.attachmentLayout(builder.AttachmentLayout.carousel);
-    msg.attachments([
-        new builder.HeroCard(session)
-            .title("Classic White T-Shirt")
-            .subtitle("100% Soft and Luxurious Cotton")
-            .text("Price is $25 and carried in sizes (S, M, L, and XL)")
-            .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/whiteshirt.png')])
-            .buttons([
-                builder.CardAction.imBack(session, "buy classic white t-shirt", "Buy")
             ]),
         new builder.HeroCard(session)
-            .title("Classic Gray T-Shirt")
-            .subtitle("100% Soft and Luxurious Cotton")
-            .text("Price is $25 and carried in sizes (S, M, L, and XL)")
-            .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/grayshirt.png')])
+            .title("Branches & ATM")
+            .text("Branches & ATM")
             .buttons([
-                builder.CardAction.imBack(session, "buy classic gray t-shirt", "Buy")
+                builder.CardAction.imBack(session, "Branches & ATM", "Proceed")
+            ]),
+        new builder.HeroCard(session)
+            .title("Rates and Tariffs")
+            .text("rates and tariffs")
+            .buttons([
+                builder.CardAction.imBack(session, "Rates and Tariffs", "Proceed")
             ])
     ]);
-    session.send(msg).endDialog();
-}).triggerAction({ matches: /^(show|list)/i });
+    session.send(msg).endConversation();
+});
 
 var server = restify.createServer();
 server.post('/api/messages', connector.listen());
