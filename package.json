@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Dmdl/TBB#readme",
   "dependencies": {
     "botbuilder": "^3.10.2",
+    "node-cron": "^1.2.1",
     "restify": "^6.0.1"
   }
 }

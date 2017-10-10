@@ -1,5 +1,6 @@
 var restify = require('restify');
 var builder = require('botbuilder');
+var cron = require('node-cron');
 var server = restify.createServer();
 
 server.listen(process.env.port || process.env.PORT || 3978, function () {
@@ -13,6 +14,11 @@ var connector = new builder.ChatConnector({
 
 var bot = new builder.UniversalBot(connector);
 
+cron.schedule('* * * * *', function () {
+    if (savedAddress && bot) {
+        sendProactiveMessage(savedAddress);
+    }
+});
 
 function sendProactiveMessage(addr) {
     var msg = new builder.Message().address(addr);
