@@ -16,7 +16,7 @@ var bot = new builder.UniversalBot(connector);
 
 function sendProactiveMessage(addr) {
     var msg = new builder.Message().address(addr);
-    msg.text('Hello, this is a notification');
+    msg.text('Hello, this is a notification---push');
     msg.textLocale('en-US');
     bot.send(msg);
 }
@@ -34,7 +34,7 @@ server.get('/api/CustomWebApi', (req, res, next) => {
 bot.dialog('/', function (session, args) {
 
     savedAddress = session.message.address;
-    console.log('savedAddress----------- ' + savedAddress);
+    console.log('savedAddress----------- ' + JSON.stringify(savedAddress));
 
     var message = 'Hello! In a few seconds I\'ll send you a message proactively to demonstrate how bots can initiate messages.';
     session.send(message);
