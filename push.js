@@ -15,7 +15,7 @@ var connector = new builder.ChatConnector({
 var bot = new builder.UniversalBot(connector);
 
 //00 00 24 * * *
-cron.schedule('* 12 18 * *', function () {
+cron.schedule('* 45 12 * *', function () {
     if (savedAddress && bot) {
         sendProactiveMessage(savedAddress);
     }
