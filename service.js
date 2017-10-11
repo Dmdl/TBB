@@ -5,8 +5,10 @@ var mongoLabUrl = 'mongodb://' + process.env.MONGO_USER + ':' + process.env.MONG
 module.exports = {
     saveUserAddress: function (address) {
         console.log('saving address ' + address);
+        var addressParsed = JSON.parse(address);
+        console.log('addressParsed ' + addressParsed);
         var deferred = q.defer();
-        var docToSave = { userId: address.user.id, address: address };
+        var docToSave = { userId: addressParsed.user.id, address: address };
         MongoClient.connect(mongoLabUrl, function (err, db) {
             insertOrUpdateAdd(db, docToSave, function (err, result) {
                 db.close();
