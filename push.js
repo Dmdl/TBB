@@ -1,6 +1,6 @@
 var restify = require('restify');
 var builder = require('botbuilder');
-var cron = require('node-cron');
+var CronJob = require('cron').CronJob;
 var server = restify.createServer();
 
 server.listen(process.env.port || process.env.PORT || 3978, function () {
@@ -14,12 +14,22 @@ var connector = new builder.ChatConnector({
 
 var bot = new builder.UniversalBot(connector);
 
-//00 00 24 * * *
-cron.schedule('* 45 12 * *', function () {
+var job = new CronJob('00 50 9 * * 1-5', function () {
+    /*
+     * Runs every weekday (Monday through Friday)
+     * at 11:30:00 AM. It does not run on Saturday
+     * or Sunday.
+     */
     if (savedAddress && bot) {
         sendProactiveMessage(savedAddress);
     }
-});
+}, function () {
+    /* This function is executed when the job stops */
+},
+    true, /* Start the job right now */
+    'Asia/Colombo' /* Time zone of this job. */
+);
+job.start();
 
 function sendProactiveMessage(addr) {
     var msg = new builder.Message().address(addr);
