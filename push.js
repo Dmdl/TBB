@@ -2,6 +2,7 @@ var restify = require('restify');
 var builder = require('botbuilder');
 var CronJob = require('cron').CronJob;
 var server = restify.createServer();
+var service = require('./service.js');
 
 server.listen(process.env.port || process.env.PORT || 3978, function () {
     console.log('%s listening to %s', server.name, server.url);
@@ -61,7 +62,13 @@ bot.dialog('/', function (session, args) {
     message += 'http://localhost:' + server.address().port + '/api/CustomWebApi';
     session.send(message);
 
-    setTimeout(() => {
-        sendProactiveMessage(savedAddress);
-    }, 5000)
+    // setTimeout(() => {
+    //     sendProactiveMessage(savedAddress);
+    // }, 5000);
+
+    service.saveUserAddress(savedAddress).then(function (result) {
+        console.log('saved');
+    }).fail(function (error) {
+        console.log('error');
+    });
 });

@@ -3,6 +3,7 @@ var mongoLabUrl = 'mongodb://' + process.env.MONGO_USER + ':' + process.env.MONG
 
 module.exports = {
     saveUserAddress: function (address) {
+        console.log('saving address ' + address);
         var deferred = q.defer();
         var docToSave = { userId: address.user.id, address: address };
         MongoClient.connect(mongoLabUrl, function (err, db) {
