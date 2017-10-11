@@ -1,3 +1,4 @@
+var q = require('q');
 var MongoClient = require('mongodb').MongoClient;
 var mongoLabUrl = 'mongodb://' + process.env.MONGO_USER + ':' + process.env.MONGO_PASS + '@ds137121.mlab.com:37121/m2c2';
 
