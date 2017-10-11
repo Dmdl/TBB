@@ -1,15 +1,13 @@
 var q = require('q');
 var MongoClient = require('mongodb').MongoClient;
-var mongoLabUrl = 'mongodb://' + process.env.MONGO_USER + ':' + process.env.MONGO_PASS + '@ds137121.mlab.com:37121/m2c2';
+var mongoLabUrl = 'mongodb://' + process.env.MONGO_USER + ':' + process.env.MONGO_PASS + '@ds117485.mlab.com:17485/tbb';
 
 module.exports = {
     saveUserAddress: function (address) {
-        console.log('saving address ' + JSON.stringify(address));
-        console.log(address.user);
         var user = address.user;
         var deferred = q.defer();
         var docToSave = { userId: user.id, address: address };
-        console.log('doc to save----- ' + docToSave);
+        console.log('doc to save----- ' + JSON.stringify(docToSave));
         MongoClient.connect(mongoLabUrl, function (err, db) {
             insertOrUpdateAdd(db, docToSave, function (err, result) {
                 db.close();
