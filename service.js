@@ -9,6 +9,7 @@ module.exports = {
         var user = address.user;
         var deferred = q.defer();
         var docToSave = { userId: user.id, address: address };
+        console.log('doc to save----- ' + docToSave);
         MongoClient.connect(mongoLabUrl, function (err, db) {
             insertOrUpdateAdd(db, docToSave, function (err, result) {
                 db.close();
@@ -24,7 +25,7 @@ module.exports = {
 };
 
 var insertOrUpdateAdd = function (db, document, callback) {
-    db.collection('user_address').update({ userId: document.user.id }, document, { upsert: true }, function (err, res) {
+    db.collection('user_address').update({ userId: document.userId }, document, { upsert: true }, function (err, res) {
         callback(err, res);
     });
 };
