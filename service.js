@@ -6,8 +6,9 @@ module.exports = {
     saveUserAddress: function (address) {
         console.log('saving address ' + JSON.stringify(address));
         console.log(address.user);
+        var user = JSON.parse(address.user);
         var deferred = q.defer();
-        var docToSave = { userId: address.user.id, address: address };
+        var docToSave = { userId: user.id, address: address };
         MongoClient.connect(mongoLabUrl, function (err, db) {
             insertOrUpdateAdd(db, docToSave, function (err, result) {
                 db.close();
